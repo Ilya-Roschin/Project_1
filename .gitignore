@@ -1,5 +1,5 @@
 # Project exclude paths
-/shelf/
+/out/
 /.idea/workspace.xml
 .idea
 СrudUser.iml
