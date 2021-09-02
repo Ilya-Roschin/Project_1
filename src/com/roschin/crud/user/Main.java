@@ -18,26 +18,6 @@ public class Main {
             makeChoice(choice);
         }
 
-
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//    while (true) {
-//        System.out.println("input first name: ");
-//        String input = scanner.nextLine();
-//        if ("0".equals(input)) {
-//            break;
-//        }
-//        User user = new User(1, input, "email@.com");
-//        storage.add(user);
-//
-//    }
-//
-//        System.out.println("Enter first name");
-//        String findName = scanner.nextLine();
-//        storage.findByFirstName(findName);
-
-
     }
 
     private static void printMenu() {
