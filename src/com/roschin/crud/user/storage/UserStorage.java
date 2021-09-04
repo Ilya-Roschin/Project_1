@@ -31,27 +31,20 @@ public class UserStorage {
         throw new RuntimeException("There is no user with given username: " + firstName);
     }
 
-    public void deleteByUserName(String firstName) {
-        boolean check = true;
-        if (firstName != null) {
-            int i = 0;
-            while (i < ARRAY_SIZE) {
-                if (storage[i] == null) {
-                    i++;
-                    continue;
-                }
-                if (storage[i].getFirstName().equals(firstName)) {
-                    storage[i] = null;
-                    System.out.println("User deleted! ");
-                    check = false;
-                    break;
-                }
+    public boolean deleteByUserName(String firstName) {
+        int i = 0;
+        while (i < ARRAY_SIZE) {
+            if (storage[i] == null) {
                 i++;
+                continue;
             }
+            if (storage[i].getFirstName().equals(firstName)) {
+                storage[i] = null;
+                return true;
+            }
+            i++;
         }
-        if (check) {
-            System.out.println("User not found! ");
-        }
+        return false;
     }
 
     public User[] findAll() {

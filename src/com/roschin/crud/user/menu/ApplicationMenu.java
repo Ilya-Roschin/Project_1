@@ -57,7 +57,11 @@ public class ApplicationMenu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter user name: ");
         String name = scanner.nextLine();
-        storage.deleteByUserName(name);
+        if (storage.deleteByUserName(name)) {
+            System.out.println("User deleted");
+        } else {
+            System.out.println("User not found");
+        }
     }
 
     private void findAllUsers() {
