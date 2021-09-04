@@ -1,4 +1,4 @@
-package com.roschin.crud.user;
+package com.roschin.crud.user.menu;
 
 import com.roschin.crud.user.model.User;
 import com.roschin.crud.user.storage.UserStorage;

@@ -1,5 +1,7 @@
 package com.roschin.crud.user;
 
+import com.roschin.crud.user.menu.ApplicationMenu;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,9 +17,4 @@ public class Main {
             }
         }
     }
-
 }
-
-
-// TODO: 31.08.2021  Add git
-// TODO Методы, связанные с меню, вынести в класс ApplicationMenu и вызывыть только через объект этого класса
