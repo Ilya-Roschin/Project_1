@@ -1,23 +1,22 @@
 package com.roschin.crud.user;
 
-import com.roschin.crud.user.storage.UserStorage;
-
 public class Main {
-
-    private static final UserStorage storage = new UserStorage();
-
 
     public static void main(String[] args) {
 
+        ApplicationMenu applicationMenu = new ApplicationMenu();
         while (true) {
-            ApplicationMenu.printMenu();
-            int choice = ApplicationMenu.readMenu();
-            ApplicationMenu.makeChoice(choice);
+            try {
+                applicationMenu.printMenu();
+                int choice = applicationMenu.readMenu();
+                applicationMenu.makeChoice(choice);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
 }
-
 
 
 // TODO: 31.08.2021  Add git

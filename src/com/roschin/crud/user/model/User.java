@@ -12,6 +12,13 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "User ID: " + id + "\n" +
+                "User name: " + firstName + "\n" +
+                "Email: " + email + "\n" +
+                "---------------" + "\n";
+    }
 
     public int getId() {
         return id;

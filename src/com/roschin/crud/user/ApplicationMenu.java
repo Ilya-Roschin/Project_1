@@ -9,7 +9,7 @@ public class ApplicationMenu {
 
     private static final UserStorage storage = new UserStorage();
 
-    public static void printMenu() {
+    public void printMenu() {
         System.out.println("Menu:");
         System.out.println("1. add new user");
         System.out.println("2. find user by user name");
@@ -19,38 +19,24 @@ public class ApplicationMenu {
 
     }
 
-    public static int readMenu() {
+    public int readMenu() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
-    public static void makeChoice(int choice) {
-        Scanner scanner = new Scanner(System.in);
+    public void makeChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("input first name: ");
-                String inputName = scanner.nextLine();
-                if ("0".equals(inputName)) {
-                    break;
-                }
-                System.out.println("input Email: ");
-                String inputEmail = scanner.nextLine();
-                if ("0".equals(inputEmail)) {
-                    break;
-                }
-                int userId = storage.createNewUserId();
-
-                User user = new User(userId, inputName, inputEmail);
-                storage.add(user);
+                addUser();
                 break;
             case 2:
-                findUserMethod();
+                findUser();
                 break;
             case 3:
-                deleteUserMethod();
+                deleteUser();
                 break;
             case 4:
-                findAllUsersMethod();
+                findAllUsers();
                 break;
             case 0:
                 System.exit(0);
@@ -59,46 +45,42 @@ public class ApplicationMenu {
         }
     }
 
-    private static void findUserMethod() {
+    private void findUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter first name: ");
         String firstName = scanner.nextLine();
         User foundUser = storage.findByFirstName(firstName);
-        System.out.println("User ID:" + foundUser.getId());
-        System.out.println("First name:" + foundUser.getFirstName());
-        System.out.println("Email:" + foundUser.getEmail());
-        System.out.println("--------------------");
+        System.out.println(foundUser);
     }
 
-    private static void deleteUserMethod() {
+    private void deleteUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter user name: ");
         String name = scanner.nextLine();
         storage.deleteByUserName(name);
     }
 
-    private static void findAllUsersMethod() {
-        boolean check = true;
+    private void findAllUsers() {
         User[] users = storage.findAll();
         for (User element : users) {
             if (element == null) {
                 continue;
             }
-            System.out.println("User ID:" + element.getId());
-            System.out.println("First name:" + element.getFirstName());
-            System.out.println("Email:" + element.getEmail());
-            System.out.println("--------------------");
-            check = false;
+            System.out.println(element);
         }
-        if (check) {
+        if (users.length == 0) {
             System.out.println("No users!");
         }
     }
 
-
-
-
-
-
-
+    private void addUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("input first name: ");
+        String inputName = scanner.nextLine();
+        System.out.println("input Email: ");
+        String inputEmail = scanner.nextLine();
+        int userId = storage.createNewUserId();
+        User user = new User(userId, inputName, inputEmail);
+        storage.add(user);
+    }
 }
