@@ -69,26 +69,6 @@ import java.util.Random;
             }
         }
 
-        public int createNewUserId() {
-            Random random = new Random();
-            boolean check;
-            int newUserIndex;
-            do {
-                check = false;
-                newUserIndex = 100000 + random.nextInt(899999);
-                for (User element : storage) {
-                    if (element == null) {
-                        continue;
-                    }
-                    if (element.getId() == newUserIndex) {
-                        check = true;
-                        break;
-                    }
-                }
-            } while (check);
-            return newUserIndex;
-        }
-
         public User[] findAll() {
             return storage;
         }

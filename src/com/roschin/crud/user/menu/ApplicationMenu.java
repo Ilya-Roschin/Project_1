@@ -79,8 +79,7 @@ public class ApplicationMenu {
         String inputName = scanner.nextLine();
         System.out.println("input Email: ");
         String inputEmail = scanner.nextLine();
-        int userId = storage.createNewUserId();
-        User user = new User(userId, inputName, inputEmail);
+        User user = new User(inputName, inputEmail);
         storage.add(user);
     }
 }

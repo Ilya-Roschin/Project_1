@@ -1,13 +1,14 @@
 package com.roschin.crud.user.model;
 
+import java.util.UUID;
+
 public class User {
 
-    private final int id;
+    private final long id = UUID.randomUUID().getMostSignificantBits();
     private final String firstName;
     private final String email;
 
-    public User(int id, String firstName, String email) {
-        this.id = id;
+    public User(String firstName, String email) {
         this.firstName = firstName;
         this.email = email;
     }
@@ -20,7 +21,7 @@ public class User {
                 "---------------" + "\n";
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
