@@ -7,10 +7,9 @@ import java.util.Scanner;
 
 public class ApplicationMenu {
 
-    private int CHOSE;
     private static final UserStorage storage = new UserStorage();
 
-    private static void printMenu() {
+    public static void printMenu() {
         System.out.println("Menu:");
         System.out.println("1. add new user");
         System.out.println("2. find user by user name");
@@ -20,12 +19,12 @@ public class ApplicationMenu {
 
     }
 
-    private static int readMenu() {
+    public static int readMenu() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
-    private static void makeChoice(int choice) {
+    public static void makeChoice(int choice) {
         Scanner scanner = new Scanner(System.in);
         switch (choice) {
             case 1:
@@ -45,36 +44,13 @@ public class ApplicationMenu {
                 storage.add(user);
                 break;
             case 2:
-                System.out.println("Enter first name: ");
-                String firstName = scanner.nextLine();
-                User foundUser = storage.findByFirstName(firstName);
-                System.out.println("User ID:" + foundUser.getId());
-                System.out.println("First name:" + foundUser.getFirstName());
-                System.out.println("Email:" + foundUser.getEmail());
-                System.out.println("--------------------");
+                findUserMethod();
                 break;
             case 3:
-                System.out.println("Enter user name: ");
-                String name = scanner.nextLine();
-                storage.deleteByUserName(name);
+                deleteUserMethod();
                 break;
-
             case 4:
-                boolean check = true;
-                User[] users = storage.findAll();
-                for (User element : users) {
-                    if (element == null) {
-                        continue;
-                    }
-                    System.out.println("User ID:" + element.getId());
-                    System.out.println("First name:" + element.getFirstName());
-                    System.out.println("Email:" + element.getEmail());
-                    System.out.println("--------------------");
-                    check = false;
-                }
-                if (check) {
-                    System.out.println("No users!");
-                }
+                findAllUsersMethod();
                 break;
             case 0:
                 System.exit(0);
@@ -82,6 +58,47 @@ public class ApplicationMenu {
                 System.out.println("no such operations");
         }
     }
+
+    private static void findUserMethod() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter first name: ");
+        String firstName = scanner.nextLine();
+        User foundUser = storage.findByFirstName(firstName);
+        System.out.println("User ID:" + foundUser.getId());
+        System.out.println("First name:" + foundUser.getFirstName());
+        System.out.println("Email:" + foundUser.getEmail());
+        System.out.println("--------------------");
+    }
+
+    private static void deleteUserMethod() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter user name: ");
+        String name = scanner.nextLine();
+        storage.deleteByUserName(name);
+    }
+
+    private static void findAllUsersMethod() {
+        boolean check = true;
+        User[] users = storage.findAll();
+        for (User element : users) {
+            if (element == null) {
+                continue;
+            }
+            System.out.println("User ID:" + element.getId());
+            System.out.println("First name:" + element.getFirstName());
+            System.out.println("Email:" + element.getEmail());
+            System.out.println("--------------------");
+            check = false;
+        }
+        if (check) {
+            System.out.println("No users!");
+        }
+    }
+
+
+
+
+
 
 
 }
