@@ -47,6 +47,22 @@ public class UserStorage {
         return false;
     }
 
+
+    public void removeUser(String firstName, User newUser) {
+        int i = 0;
+        while (i < ARRAY_SIZE) {
+            if (storage[i] == null) {
+                i++;
+                continue;
+            }
+            if (storage[i].getFirstName().equals(firstName)) {
+                storage[i] = newUser;
+                break;
+            }
+            i++;
+        }
+    }
+
     public User[] findAll() {
         return storage;
     }

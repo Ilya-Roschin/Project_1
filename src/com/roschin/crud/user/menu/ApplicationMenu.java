@@ -15,6 +15,7 @@ public class ApplicationMenu {
         System.out.println("2. find user by user name");
         System.out.println("3. delete user by user name");
         System.out.println("4. find all users");
+        System.out.println("5. remove user by user name");
         System.out.println("0. exit");
 
     }
@@ -37,6 +38,9 @@ public class ApplicationMenu {
                 break;
             case 4:
                 findAllUsers();
+                break;
+            case 5:
+                removeUser();
                 break;
             case 0:
                 System.exit(0);
@@ -85,5 +89,17 @@ public class ApplicationMenu {
         String inputEmail = scanner.nextLine();
         User user = new User(inputName, inputEmail);
         storage.add(user);
+    }
+
+    private void removeUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("input user name: ");
+        String findName = scanner.nextLine();
+        System.out.println("input new first name: ");
+        String inputName = scanner.nextLine();
+        System.out.println("input new Email: ");
+        String inputEmail = scanner.nextLine();
+        User newUser = new User(inputName, inputEmail);
+        storage.removeUser(findName, newUser);
     }
 }
