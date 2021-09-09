@@ -1,13 +1,19 @@
 package com.roschin.crud.user.menu;
 
 import com.roschin.crud.user.model.User;
+import com.roschin.crud.user.reader.Reader;
 import com.roschin.crud.user.storage.UserStorage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class ApplicationMenu {
 
-    private static final UserStorage storage = new UserStorage();
+    private static final UserStorage STORAGE = new UserStorage();
+    private static final Reader reader = new Reader();
 
     public void printMenu() {
         System.out.println("Menu:");
@@ -40,7 +46,7 @@ public class ApplicationMenu {
                 findAllUsers();
                 break;
             case 5:
-                removeUser();
+                updateUser();
                 break;
             case 0:
                 System.exit(0);
@@ -50,18 +56,14 @@ public class ApplicationMenu {
     }
 
     private void findUser() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter first name: ");
-        String firstName = scanner.nextLine();
-        User foundUser = storage.findByFirstName(firstName);
+        String firstName = reader.readLine("Enter user name: ");
+        User foundUser = STORAGE.findByFirstName(firstName);
         System.out.println(foundUser);
     }
 
     private void deleteUser() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter user name: ");
-        String name = scanner.nextLine();
-        if (storage.deleteByUserName(name)) {
+        String name = reader.readLine("Enter user name: ");
+        if (STORAGE.deleteByUserName(name)) {
             System.out.println("User deleted");
         } else {
             System.out.println("User not found");
@@ -69,7 +71,7 @@ public class ApplicationMenu {
     }
 
     private void findAllUsers() {
-        User[] users = storage.findAll();
+        User[] users = STORAGE.findAll();
         for (User element : users) {
             if (element == null) {
                 continue;
@@ -82,24 +84,35 @@ public class ApplicationMenu {
     }
 
     private void addUser() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("input first name: ");
-        String inputName = scanner.nextLine();
-        System.out.println("input Email: ");
-        String inputEmail = scanner.nextLine();
+        String inputName = reader.readLine("input new first name: ");
+        String inputEmail = reader.readLine("input new Email: ");
         User user = new User(inputName, inputEmail);
-        storage.add(user);
+        STORAGE.add(user);
     }
 
-    private void removeUser() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("input user name: ");
-        String findName = scanner.nextLine();
-        System.out.println("input new first name: ");
-        String inputName = scanner.nextLine();
-        System.out.println("input new Email: ");
-        String inputEmail = scanner.nextLine();
-        User newUser = new User(inputName, inputEmail);
-        storage.removeUser(findName, newUser);
+    private void updateUser() {
+        String findName = reader.readLine("input user name: ");
+        String inputName = reader.readLine("input new first name: ");
+        String inputEmail = reader.readLine("input new Email: ");
+        long id = STORAGE.findByFirstName(findName).getId();
+        User newUser = new User(id, inputName, inputEmail);
+        STORAGE.removeUser(findName, newUser);
     }
+
+    private void createNewFileTxt() throws IOException {
+        File createFile = new File("C:\\UserStorage.txt");
+        createFile.createNewFile();
+    }
+
+    private void addAllUsersToTxt(File createFile) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(createFile);
+        User[] users = STORAGE.findAll();
+        for (User element : users) {
+            if (element == null) {
+                continue;
+            }
+            pw.println(element);
+        }
+    }
+
 }

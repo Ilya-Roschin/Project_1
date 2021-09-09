@@ -4,11 +4,18 @@ import java.util.UUID;
 
 public class User {
 
-    private final long id = UUID.randomUUID().getMostSignificantBits();
+    private final long id;
     private final String firstName;
     private final String email;
 
     public User(String firstName, String email) {
+        this.id = UUID.randomUUID().getMostSignificantBits();
+        this.firstName = firstName;
+        this.email = email;
+    }
+
+    public User(long id, String firstName, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.email = email;
     }
@@ -32,4 +39,5 @@ public class User {
     public String getEmail() {
         return email;
     }
+
 }
