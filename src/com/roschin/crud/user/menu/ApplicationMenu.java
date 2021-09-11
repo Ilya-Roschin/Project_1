@@ -22,6 +22,7 @@ public class ApplicationMenu {
         System.out.println("3. delete user by user name");
         System.out.println("4. find all users");
         System.out.println("5. remove user by user name");
+        System.out.println("6. remove user by user name");
         System.out.println("0. exit");
 
     }
@@ -31,7 +32,7 @@ public class ApplicationMenu {
         return scanner.nextInt();
     }
 
-    public void makeChoice(int choice) {
+    public void makeChoice(int choice) throws IOException {
         switch (choice) {
             case 1:
                 addUser();
@@ -48,6 +49,8 @@ public class ApplicationMenu {
             case 5:
                 updateUser();
                 break;
+            case 6:
+                createNewFileTxt();
             case 0:
                 System.exit(0);
             default:
@@ -99,9 +102,12 @@ public class ApplicationMenu {
         STORAGE.removeUser(findName, newUser);
     }
 
-    private void createNewFileTxt() throws IOException {
-        File createFile = new File("C:\\UserStorage.txt");
+    private File createNewFileTxt() throws IOException {
+        String name = reader.readLine("Enter file name: ");
+        File createFile = new File("C:\\projects\\СrudUser\\src\\" +
+                "com\\roschin\\crud\\user\\resource\\" + name + ".txt");
         createFile.createNewFile();
+        return createNewFileTxt();
     }
 
     private void addAllUsersToTxt(File createFile) throws FileNotFoundException {
